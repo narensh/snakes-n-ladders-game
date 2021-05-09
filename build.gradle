@@ -1,0 +1,18 @@
+plugins {
+    id 'java'
+    id "io.freefair.lombok" version "6.0.0-m2"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'junit:junit:4.12'
+    implementation 'org.mockito:mockito-core:3.9.0'
+    implementation 'org.mockito:mockito-inline:3.9.0'
+    implementation 'org.projectlombok:lombok:1.18.12'
+}
