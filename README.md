@@ -17,3 +17,5 @@ Game
 - has Board
 - has Player
 ```
+
+[#1] Allows a player to throw dice and move on the board of size 100
