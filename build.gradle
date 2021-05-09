@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id "io.freefair.lombok" version "6.0.0-m2"
+    id "application"
 }
 
 group 'org.example'
@@ -15,4 +16,12 @@ dependencies {
     implementation 'org.mockito:mockito-core:3.9.0'
     implementation 'org.mockito:mockito-inline:3.9.0'
     implementation 'org.projectlombok:lombok:1.18.12'
+}
+
+ext {
+    javaMainClass = "game.retro.Game"
+}
+
+application {
+    mainClassName = javaMainClass
 }
