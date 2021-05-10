@@ -20,7 +20,9 @@ public class Snake {
 
     public int bite(int currentPosition) {
         if (getStartPosition() == currentPosition) {
-            return getEndPosition();
+            int newPosition = getEndPosition();
+            System.out.println("Ouch!! Snake Bite, moving to position " + newPosition);
+            return newPosition;
         }
         return currentPosition;
     }

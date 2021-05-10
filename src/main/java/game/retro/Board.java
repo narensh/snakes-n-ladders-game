@@ -3,6 +3,8 @@ package game.retro;
 import lombok.Builder;
 import lombok.Getter;
 
+import static java.util.Objects.isNull;
+
 @Getter
 public class Board {
     public static final int DEFAULT_SIZE = 100;
@@ -10,19 +12,30 @@ public class Board {
     private int size;
     private Player player;
     private int playerPosition;
+    private Snake snake;
 
     @Builder
-    public Board(int size, Player player) {
+    public Board(int size, Player player, Snake snake) {
         this.size = size;
         this.player = player;
         this.playerPosition = DEFAULT_PLAYER_POSITION;
+        this.snake = snake;
     }
 
-    public void setPlayerPosition(int playerPosition) {
-        if (playerPosition > size) {
+    public void setPlayerPosition(int newPlayerPosition) {
+        validatePlayerPosition(newPlayerPosition);
+
+        if (!isNull(snake)) {
+            newPlayerPosition = snake.bite(newPlayerPosition);
+        }
+
+        this.playerPosition = newPlayerPosition;
+    }
+
+    private void validatePlayerPosition(int newPlayerPosition) {
+        if (newPlayerPosition > size) {
             throw new RuntimeException("Player can't go out of bounds of Board");
         }
-        this.playerPosition = playerPosition;
     }
 
     public boolean hasPlayerWon() {
