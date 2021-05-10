@@ -8,20 +8,21 @@ import org.mockito.MockedStatic;
 import static org.mockito.Mockito.mockStatic;
 
 public class GameTest extends TestCase {
-    private int maxTurns = 3;
     private Game game;
-
-    private final int BOARD_SIZE = 10;
+    private int maxTurns = 3;
+    private final int boardSize = 10;
     private final String playerName = "Player A";
+    private final int snakeStartPos = 9;
+    private final int snakeEndPos = 2;
 
     @Before
     public void setUp() throws Exception {
-        game = Game.buildGame(BOARD_SIZE, playerName, maxTurns);
+        game = Game.buildGame(boardSize, playerName, maxTurns, snakeStartPos, snakeEndPos);
     }
 
     @Test
     public void testShouldBuildGameWithBoardSize() {
-        assert game.getBoard().getSize() == BOARD_SIZE;
+        assert game.getBoard().getSize() == boardSize;
     }
 
     @Test
@@ -73,7 +74,6 @@ public class GameTest extends TestCase {
             game.start();
 
         }
-
         assert game.getBoard().hasPlayerWon() == true;
         assert game.isCompleted() == true;
     }
@@ -81,5 +81,16 @@ public class GameTest extends TestCase {
     @Test
     public void testShouldReturnFalseWhenPlayerHasNotReachedTheMaxPosition() {
         assert game.isCompleted() == false;
+    }
+
+
+    @Test
+    public void testShouldMovePlayerPositionToSnakeEndPosition() {
+        try (MockedStatic diceStaticMock = mockStatic(Dice.class)) {
+            diceStaticMock.when(() -> Dice.roll()).thenReturn(5, 3, 1);
+
+            game.start();
+        }
+        assert game.getBoard().getPlayerPosition() == 2;
     }
 }
