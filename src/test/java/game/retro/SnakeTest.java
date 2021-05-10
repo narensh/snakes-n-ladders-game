@@ -1,10 +1,7 @@
 package game.retro;
 
 import game.retro.exceptions.InvalidSnakeException;
-import junit.framework.TestCase;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class SnakeTest {
 
@@ -24,6 +21,21 @@ public class SnakeTest {
 
     @Test(expected = InvalidSnakeException.class)
     public void testShouldRaiseErrorWhenStartPositionIsLesserThanEndPosition() {
-        Snake.builder().startPosition(10).endPosition(20).build();
+        try {
+            Snake.builder().startPosition(10).endPosition(20).build();
+        } catch (InvalidSnakeException e) {
+            assert e.getMessage().equals("startPosition: 10 should be greater than endPosition: 20");
+            throw e;
+        }
+    }
+
+    @Test(expected = InvalidSnakeException.class)
+    public void testShouldRaiseErrorWhenStartPositionIsSameAsEndPosition() {
+        try {
+            Snake.builder().startPosition(10).endPosition(10).build();
+        } catch (InvalidSnakeException e) {
+            assert e.getMessage().equals("startPosition: 10 should be greater than endPosition: 10");
+            throw e;
+        }
     }
 }
