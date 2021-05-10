@@ -1,5 +1,6 @@
 package game.retro;
 
+import game.retro.exceptions.PlayerOutOfBoundsException;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -34,7 +35,7 @@ public class Board {
 
     private void validatePlayerPosition(int newPlayerPosition) {
         if (newPlayerPosition > size) {
-            throw new RuntimeException("Player can't go out of bounds of Board");
+            throw new PlayerOutOfBoundsException();
         }
     }
 
