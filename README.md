@@ -54,6 +54,11 @@ Turn # 30 | Dice Outcome: 1 | Player A moved from position 99 to 100
 Player A has Won
 ```
 
+```
+[#2] adds snake on the board which moves the player from snake's startPosition to endPosition
+
+```
+
 ##Design
 ``` 
 Dice
@@ -70,4 +75,8 @@ Board
 Game
 - has Board
 - has Player
+
+Snake
+- has start position
+- has end position
 ```
