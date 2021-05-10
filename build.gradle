@@ -23,5 +23,5 @@ ext {
 }
 
 application {
-    mainClassName = javaMainClass
+    getMainClass().set(javaMainClass)
 }
