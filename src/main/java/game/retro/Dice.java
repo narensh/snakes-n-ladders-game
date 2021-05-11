@@ -5,7 +5,8 @@ public interface Dice {
     static final int MAX_OUTCOME = 6;
 
     public enum Type {
-        REGULAR
+        REGULAR,
+        CROOKED
     }
 
     public int roll();

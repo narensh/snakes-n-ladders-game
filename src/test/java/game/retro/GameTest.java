@@ -59,4 +59,10 @@ public class GameTest extends TestCase {
     public void testShouldReturnFalseWhenPlayerHasNotReachedTheMaxPosition() {
         assert game.isCompleted() == false;
     }
+
+    @Test
+    public void testShouldCreateCrookedDice() {
+        Game gameWithCrookedDice = Game.buildGame(boardSize, playerName, maxTurns, snakeStartPos, snakeEndPos, Dice.Type.CROOKED);
+        assert gameWithCrookedDice.getPlayer().getDice().getClass() == CrookedDice.class;
+    }
 }
