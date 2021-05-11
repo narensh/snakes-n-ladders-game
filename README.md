@@ -92,10 +92,53 @@ Dice Outcome: 1 | Player A moved from position 80 to 81
 Dice Outcome: 3 | Player A moved from position 81 to 84
 ```
 
+```
+[#3] adds a crooked dice which only returns even numbers
+
+Sample Input:
+PlayerName: 'Player A' | Board Size: 100 | MaxTurns: 30 | Snake Position {start: 20, end: 10} | Dice Type: Crooked
+  
+Sample Output:
+
+Dice Outcome: 4 | Player A moved from position 0 to 4
+Dice Outcome: 6 | Player A moved from position 4 to 10
+Dice Outcome: 2 | Player A moved from position 10 to 12
+Dice Outcome: 2 | Player A moved from position 12 to 14
+Dice Outcome: 4 | Player A moved from position 14 to 18
+Dice Outcome: 6 | Player A moved from position 18 to 24
+Dice Outcome: 2 | Player A moved from position 24 to 26
+Dice Outcome: 4 | Player A moved from position 26 to 30
+Dice Outcome: 2 | Player A moved from position 30 to 32
+Dice Outcome: 4 | Player A moved from position 32 to 36
+Dice Outcome: 2 | Player A moved from position 36 to 38
+Dice Outcome: 6 | Player A moved from position 38 to 44
+Dice Outcome: 4 | Player A moved from position 44 to 48
+Dice Outcome: 4 | Player A moved from position 48 to 52
+Dice Outcome: 6 | Player A moved from position 52 to 58
+Dice Outcome: 4 | Player A moved from position 58 to 62
+Dice Outcome: 6 | Player A moved from position 62 to 68
+Dice Outcome: 6 | Player A moved from position 68 to 74
+Dice Outcome: 2 | Player A moved from position 74 to 76
+Dice Outcome: 4 | Player A moved from position 76 to 80
+Dice Outcome: 4 | Player A moved from position 80 to 84
+Dice Outcome: 2 | Player A moved from position 84 to 86
+Dice Outcome: 2 | Player A moved from position 86 to 88
+Dice Outcome: 4 | Player A moved from position 88 to 92
+Dice Outcome: 2 | Player A moved from position 92 to 94
+Dice Outcome: 4 | Player A moved from position 94 to 98
+Dice Outcome: 4 | Player A didn't move, still at position 98
+Dice Outcome: 2 | Player A moved from position 98 to 100
+Player A has Won
+```
+
 ##Design
 ``` 
 Dice
+- is a contract
 - can roll
+- Implementations:
+    - RegularDice {1: 6}
+    - CrookedDice {2,4,6}
 
 Player
 - has name
@@ -110,6 +153,7 @@ Board
 Game
 - has Board
 - has Player
+- has max turns
 
 Snake
 - has start position
