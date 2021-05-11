@@ -32,8 +32,8 @@ public class Board {
                 newPlayerPosition = snake.bite(newPlayerPosition);
             }
 
-            this.playerPosition = newPlayerPosition;
             showChanges(steps, playerPosition, newPlayerPosition);
+            playerPosition = newPlayerPosition;
         } catch (PlayerOutOfBoundsException e) {
             showChanges(steps, playerPosition, playerPosition);
         }
