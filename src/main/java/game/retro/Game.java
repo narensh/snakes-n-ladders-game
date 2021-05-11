@@ -34,8 +34,10 @@ public class Game {
         board.movePlayer(diceOutcome);
     }
 
-    public static Game buildGame(int boardSize, String playerName, int maxTurns, int snakeStartPos, int snakeEndPos) {
-        Player player = Player.builder().name(playerName).build();
+    public static Game buildGame(int boardSize, String playerName, int maxTurns,
+                                 int snakeStartPos, int snakeEndPos, Dice.Type diceType) {
+        Dice dice = DiceBuilder.getNewDice(diceType);
+        Player player = Player.builder().name(playerName).dice(dice).build();
         Snake snake = Snake.builder().startPosition(snakeStartPos).endPosition(snakeEndPos).build();
         Board board = Board.builder().size(boardSize).player(player).snake(snake).build();
 
@@ -45,7 +47,7 @@ public class Game {
 
     public static void main(String... args) {
         Game game = buildGame(Board.DEFAULT_SIZE, "Player A", DEFAULT_MAX_TURNS,
-                DEFAULT_SNAKE_START_POS, DEFAULT_SNAKE_END_POS);
+                DEFAULT_SNAKE_START_POS, DEFAULT_SNAKE_END_POS, Dice.Type.REGULAR);
         game.start();
     }
 }

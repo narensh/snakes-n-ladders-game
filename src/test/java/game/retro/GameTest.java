@@ -14,7 +14,7 @@ public class GameTest extends TestCase {
 
     @Before
     public void setUp() throws Exception {
-        game = Game.buildGame(boardSize, playerName, maxTurns, snakeStartPos, snakeEndPos);
+        game = Game.buildGame(boardSize, playerName, maxTurns, snakeStartPos, snakeEndPos, Dice.Type.REGULAR);
     }
 
     @Test
