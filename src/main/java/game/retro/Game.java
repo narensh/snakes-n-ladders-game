@@ -29,30 +29,9 @@ public class Game {
         return board.hasPlayerWon() || turnCount >= maxTurns;
     }
 
-    private void movePlayer(int steps) {
-        int oldPlayerPosition = board.getPlayerPosition();
-        int newPlayerPosition = oldPlayerPosition + steps;
-        if (newPlayerPosition <= board.getSize()) {
-            board.setPlayerPosition(newPlayerPosition);
-        }
-        showTurnInfo(steps, oldPlayerPosition, board.getPlayerPosition());
-    }
-
     private void playTurn() {
         int diceOutcome = player.throwDice();
-        movePlayer(diceOutcome);
-    }
-
-    private void showTurnInfo(int diceOutcome, int oldPlayerPosition, int newPlayerPosition) {
-        StringBuilder stringBuilder = new StringBuilder().append("Turn # " + turnCount)
-                .append(" | ").append("Dice Outcome: " + diceOutcome)
-                .append(" | ").append(player.getName());
-        if (oldPlayerPosition != newPlayerPosition) {
-            stringBuilder.append(" moved from position " + oldPlayerPosition + " to " + newPlayerPosition);
-        } else {
-            stringBuilder.append(" didn't move, still at position " + oldPlayerPosition);
-        }
-        System.out.println(stringBuilder.toString());
+        board.movePlayer(diceOutcome);
     }
 
     public static Game buildGame(int boardSize, String playerName, int maxTurns, int snakeStartPos, int snakeEndPos) {
@@ -65,7 +44,8 @@ public class Game {
     }
 
     public static void main(String... args) {
-        Game game = buildGame(Board.DEFAULT_SIZE, "Player A", DEFAULT_MAX_TURNS, DEFAULT_SNAKE_START_POS, DEFAULT_SNAKE_END_POS);
+        Game game = buildGame(Board.DEFAULT_SIZE, "Player A", DEFAULT_MAX_TURNS,
+                DEFAULT_SNAKE_START_POS, DEFAULT_SNAKE_END_POS);
         game.start();
     }
 }

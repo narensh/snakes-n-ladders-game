@@ -3,9 +3,6 @@ package game.retro;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.MockedStatic;
-
-import static org.mockito.Mockito.mockStatic;
 
 public class GameTest extends TestCase {
     private Game game;
@@ -37,43 +34,23 @@ public class GameTest extends TestCase {
 
     @Test
     public void testPlayerShouldNotPlayBeyondMaxTurn() {
-        try (MockedStatic diceStaticMock = mockStatic(Dice.class)) {
-            diceStaticMock.when(() -> Dice.roll()).thenReturn(1, 2, 4);
+        game.start();
 
-            game.start();
-        }
         assert game.getTurnCount() == maxTurns;
     }
 
     @Test
-    public void testShouldNotMoveBeyondMaxPosition() {
-        try (MockedStatic diceStaticMock = mockStatic(Dice.class)) {
-            diceStaticMock.when(() -> Dice.roll()).thenReturn(1, 6, 5);
+    public void testIsCompletedShouldReturnTrueWhenMaxTurnsReached() {
+        game.start();
 
-            game.start();
-        }
-        assert game.getBoard().getPlayerPosition() == 7;
-    }
-
-    @Test
-    public void testShouldReturnTrueWhenMaxTurnsReached() {
-        try (MockedStatic diceStaticMock = mockStatic(Dice.class)) {
-            diceStaticMock.when(() -> Dice.roll()).thenReturn(1, 6, 5);
-
-            game.start();
-        }
         assert game.getMaxTurns() == maxTurns;
         assert game.isCompleted() == true;
     }
 
     @Test
     public void testShouldReturnTrueWhenPlayerHasWon() {
-        try (MockedStatic diceStaticMock = mockStatic(Dice.class)) {
-            diceStaticMock.when(() -> Dice.roll()).thenReturn(1, 6, 3);
+        game.getBoard().movePlayer(10);
 
-            game.start();
-
-        }
         assert game.getBoard().hasPlayerWon() == true;
         assert game.isCompleted() == true;
     }
@@ -81,16 +58,5 @@ public class GameTest extends TestCase {
     @Test
     public void testShouldReturnFalseWhenPlayerHasNotReachedTheMaxPosition() {
         assert game.isCompleted() == false;
-    }
-
-
-    @Test
-    public void testShouldMovePlayerPositionToSnakeEndPosition() {
-        try (MockedStatic diceStaticMock = mockStatic(Dice.class)) {
-            diceStaticMock.when(() -> Dice.roll()).thenReturn(5, 3, 1);
-
-            game.start();
-        }
-        assert game.getBoard().getPlayerPosition() == 2;
     }
 }

@@ -23,17 +23,23 @@ public class Board {
         this.snake = snake;
     }
 
-    public void setPlayerPosition(int newPlayerPosition) {
-        validatePlayerPosition(newPlayerPosition);
+    public void movePlayer(int steps) {
+        try {
+            int newPlayerPosition = playerPosition + steps;
+            validateNewPlayerPosition(newPlayerPosition);
 
-        if (!isNull(snake)) {
-            newPlayerPosition = snake.bite(newPlayerPosition);
+            if (!isNull(snake)) {
+                newPlayerPosition = snake.bite(newPlayerPosition);
+            }
+
+            this.playerPosition = newPlayerPosition;
+            showChanges(steps, playerPosition, newPlayerPosition);
+        } catch (PlayerOutOfBoundsException e) {
+            showChanges(steps, playerPosition, playerPosition);
         }
-
-        this.playerPosition = newPlayerPosition;
     }
 
-    private void validatePlayerPosition(int newPlayerPosition) {
+    private void validateNewPlayerPosition(int newPlayerPosition) {
         if (newPlayerPosition > size) {
             throw new PlayerOutOfBoundsException();
         }
@@ -45,5 +51,16 @@ public class Board {
             System.out.println(player.getName() + " has Won");
         }
         return won;
+    }
+
+    private void showChanges(int diceOutcome, int oldPlayerPosition, int newPlayerPosition) {
+        StringBuilder stringBuilder = new StringBuilder().append("Dice Outcome: " + diceOutcome)
+                .append(" | ").append(player.getName());
+        if (oldPlayerPosition != newPlayerPosition) {
+            stringBuilder.append(" moved from position " + oldPlayerPosition + " to " + newPlayerPosition);
+        } else {
+            stringBuilder.append(" didn't move, still at position " + oldPlayerPosition);
+        }
+        System.out.println(stringBuilder.toString());
     }
 }
